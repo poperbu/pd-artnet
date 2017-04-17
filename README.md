@@ -1,7 +1,8 @@
 # pd-artnet
 Simple Artnet protocol implementation with Pure Data 
 
-Jordi Sala 2017
+Jordi Sala 2017 http://musa.poperbu.net
+
 
 ArtNet-DMX.pd:
 
