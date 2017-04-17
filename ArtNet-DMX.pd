@@ -1,0 +1,437 @@
+#N canvas 804 257 1077 795 12;
+#X msg 296 134 disconnect;
+#X obj 221 671 tgl 15 0 empty empty connected 20 7 0 8 -24198 -241291
+-1 0 1;
+#X msg 223 101 connect 192.168.55.41 6454;
+#X obj 838 -52 import pdstring;
+#X obj 837 -24 import mrpeach;
+#X obj 221 627 udpsend;
+#N canvas 1142 562 1350 430 Art-Net 0;
+#X text 230 326 Art-Net;
+#X msg 344 420 0 14;
+#X msg 354 369 0 80;
+#X msg 336 479 0;
+#X msg 356 566 2 0;
+#X msg 357 324 65 114 116 45 78 101 116 0;
+#X text 203 364 OpCode DMX 0x5000;
+#X msg 346 507 0;
+#X msg 348 533 0;
+#X text 151 536 high universe (not used);
+#X text 165 507 low universe 0-256;
+#X text 195 479 physical 0x00;
+#X text 202 450 sequence 0-256;
+#X msg 343 453 0;
+#X text 193 411 ProtVersion (14):;
+#X text 599 362 char ID[8] \; //"Art-Net"UInt16 OpCode \; // See Doc.
+Table 1 - OpCodes eg. 0x5000 OpOutput / OpDmxUInt16 version \; //
+0x0e00 (aka 14)UInt8 seq \; // monotonic counterUInt8 physical \;
+// 0x00UInt8 subUni \; // low universe (0-255)UInt8 net \; // high
+universe (not used)UInt16 length \; // data length (2 - 512)uint8_t
+data[512] \; // universe data, f 83;
+#X text 210 254 Art-Net DMX packet format;
+#X text 203 568 length (2-512);
+#X msg 580 288 http://www.artisticlicence.com/WebSiteMaster/User%20Guides/art-net.pdf
+;
+#X text 570 263 +info:;
+#X restore 448 52 pd Art-Net DMX Packet format;
+#X text 418 104 <<< IP address and Port (default 6454) of ArtNet Node
+;
+#X text 658 55 <<< Some info about Packet format;
+#N canvas 1235 965 971 484 testing_packets 0;
+#X msg 779 -197 65 114 116 45 78 101 116 0 0 80 0 14 8 0 0 0 2 0 1
+2 3 4 5 6 7 8 9 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0;
+#X text 867 -228 512 channels;
+#X msg 286 -210 65 114 116 45 78 101 116 0 0 80 0 14 8 0 0 0 0 8 10
+20 30 40 50 60 70 80;
+#X text 423 -248 8 channels;
+#X restore 255 51 pd testing_packets;
+#N canvas 1130 550 1101 728 8-channel-Example 0;
+#X obj 286 126 cup;
+#X floatatom 286 177 5 0 0 0 - - -, f 5;
+#X text 198 126 sequence;
+#X text 446 87 8 channels;
+#X msg 393 359 65 114 116 45 78 101 116 0 0 80 0 14 179 0 0 0 0 0 255
+255 255 232 182 77 150 232;
+#X obj 249 71 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 425 116 universe;
+#X msg 459 141 0;
+#X msg 421 144 0;
+#X msg 513 139 0;
+#X text 517 113 length;
+#X msg 551 138 8;
+#X obj 351 -143 vsl 15 128 0 255 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 389 216 pack f f f f f f f f f f f f f;
+#X obj 351 -143 vsl 15 128 0 255 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 382 -143 vsl 15 128 0 255 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 442 -143 vsl 15 128 0 255 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 412 -143 vsl 15 128 0 255 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 470 -143 vsl 15 128 0 255 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 500 -143 vsl 15 128 0 255 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 523 -142 vsl 15 128 0 255 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 550 -143 vsl 15 128 0 255 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 633 78 r ch1;
+#X obj 683 78 r ch2;
+#X obj 734 78 r ch3;
+#X obj 786 75 r ch4;
+#X obj 857 78 r ch5;
+#X obj 914 78 r ch6;
+#X obj 965 78 r ch7;
+#X obj 1022 78 r ch8;
+#X obj 633 120 t b f;
+#X obj 683 121 t b f;
+#X obj 734 122 t b f;
+#X obj 786 120 t b f;
+#X obj 856 123 t b f;
+#X obj 916 126 t b f;
+#X obj 967 127 t b f;
+#X obj 1021 128 t b f;
+#X msg 389 266 set 65 114 116 45 78 101 116 0 0 80 0 14 \$1 0 \$2 \$3
+\$4 \$5 \$6 \$7 \$8 \$9 \$10 \$11 \$12 \$13;
+#X obj 341 41 s ch1;
+#X obj 341 41 s ch1;
+#X obj 516 41 s ch1;
+#X obj 387 41 s ch2;
+#X obj 429 41 s ch3;
+#X obj 471 41 s ch4;
+#X obj 516 41 s ch5;
+#X obj 562 42 s ch6;
+#X obj 606 41 s ch7;
+#X obj 651 42 s ch8;
+#X obj 348 5 int;
+#X obj 382 4 int;
+#X obj 417 2 int;
+#X obj 449 2 int;
+#X obj 488 2 int;
+#X obj 524 6 int;
+#X obj 559 5 int;
+#X obj 592 5 int;
+#X msg 209 209 0;
+#X obj 392 313 t b a;
+#X obj 212 177 sel 255;
+#X obj 393 424 outlet;
+#X text 666 -128 Simple example of 8 channel-length (1-8) Art-Net-DMX
+controller;
+#X obj 955 257 s s_next8;
+#X obj 277 86 r s_next8;
+#X connect 0 0 1 0;
+#X connect 0 0 13 0;
+#X connect 0 0 59 0;
+#X connect 4 0 60 0;
+#X connect 5 0 0 0;
+#X connect 7 0 13 2;
+#X connect 8 0 13 1;
+#X connect 9 0 13 3;
+#X connect 11 0 13 4;
+#X connect 13 0 38 0;
+#X connect 14 0 49 0;
+#X connect 15 0 50 0;
+#X connect 16 0 52 0;
+#X connect 17 0 51 0;
+#X connect 18 0 53 0;
+#X connect 19 0 54 0;
+#X connect 20 0 55 0;
+#X connect 21 0 56 0;
+#X connect 22 0 30 0;
+#X connect 23 0 31 0;
+#X connect 24 0 32 0;
+#X connect 25 0 33 0;
+#X connect 26 0 34 0;
+#X connect 27 0 35 0;
+#X connect 28 0 36 0;
+#X connect 29 0 37 0;
+#X connect 30 0 62 0;
+#X connect 30 1 13 5;
+#X connect 31 0 62 0;
+#X connect 31 1 13 6;
+#X connect 32 0 62 0;
+#X connect 32 1 13 7;
+#X connect 33 0 62 0;
+#X connect 33 1 13 8;
+#X connect 34 0 62 0;
+#X connect 34 1 13 9;
+#X connect 35 0 62 0;
+#X connect 35 1 13 10;
+#X connect 36 0 62 0;
+#X connect 36 1 13 11;
+#X connect 37 0 62 0;
+#X connect 37 1 13 12;
+#X connect 38 0 58 0;
+#X connect 49 0 40 0;
+#X connect 50 0 42 0;
+#X connect 51 0 43 0;
+#X connect 52 0 44 0;
+#X connect 53 0 45 0;
+#X connect 54 0 46 0;
+#X connect 55 0 47 0;
+#X connect 56 0 48 0;
+#X connect 57 0 0 0;
+#X connect 58 0 4 0;
+#X connect 58 1 4 0;
+#X connect 59 0 57 0;
+#X connect 63 0 0 0;
+#X restore 256 533 pd 8-channel-Example;
+#N canvas 1154 518 813 616 512channel_array 0;
+#X floatatom 290 74 5 0 0 0 - - -, f 5;
+#X msg 290 96 resize \$1;
+#X obj 290 122 s channelsArray;
+#X obj 174 -65 table channelsArray 512;
+#X floatatom 288 208 0 0 99 1 index - -;
+#X floatatom 138 207 0 0 0 0 value - -;
+#X obj 137 245 tabwrite channelsArray;
+#X floatatom 488 224 0 0 512 0 index - -;
+#X obj 488 358 tabread channelsArray;
+#X floatatom 488 437 0 0 0 0 value - -;
+#X msg 108 326 bang;
+#X obj 108 386 print;
+#X obj 108 361 tabdump channelsArray;
+#N canvas 1166 586 620 447 set_all 0;
+#X obj 63 85 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X floatatom 48 246 5 0 0 0 - - -, f 5;
+#X obj 91 198 cup;
+#X msg 165 171 0;
+#X obj 98 132 t b b;
+#X obj 122 96 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 165 265 stop;
+#X obj 98 70 inlet;
+#X obj 302 121 - 1;
+#X text 296 55 num of channels;
+#X obj 454 74 inlet;
+#X text 448 50 set value;
+#X obj 288 295 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 285 348 int 0;
+#X floatatom 222 372 0 0 99 1 index - -;
+#X floatatom 100 349 0 0 0 0 value - -;
+#X obj 99 397 tabwrite channelsArray;
+#X obj 210 312 t b i;
+#X obj 415 352 tabdump channelsArray;
+#X obj 415 377 print new values;
+#X obj 91 168 metro 1;
+#X obj 301 81 r num_of_channels;
+#X msg 247 199 512;
+#X obj 167 232 sel 512;
+#X connect 0 0 2 0;
+#X connect 2 0 1 0;
+#X connect 2 0 17 0;
+#X connect 2 0 23 0;
+#X connect 3 0 2 0;
+#X connect 4 0 20 0;
+#X connect 4 1 3 0;
+#X connect 5 0 4 0;
+#X connect 6 0 20 0;
+#X connect 7 0 4 0;
+#X connect 8 0 23 1;
+#X connect 10 0 13 1;
+#X connect 12 0 13 0;
+#X connect 13 0 16 0;
+#X connect 14 0 16 1;
+#X connect 15 0 16 0;
+#X connect 17 0 13 0;
+#X connect 17 1 16 1;
+#X connect 18 0 19 0;
+#X connect 20 0 2 0;
+#X connect 21 0 8 0;
+#X connect 22 0 23 1;
+#X connect 23 0 6 0;
+#X connect 23 0 18 0;
+#X restore 540 205 pd set_all;
+#X obj 539 115 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X floatatom 607 176 0 0 0 0 value - -;
+#X obj 609 0 vsl 15 128 0 255 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 609 0 vsl 15 128 0 255 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 608 148 int;
+#X obj 18 -86 vsl 15 128 0 512 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 16 67 int;
+#X floatatom 14 94 0 0 0 0 - - -;
+#X obj 14 130 s num_of_channels;
+#X obj 290 28 r num_of_channels;
+#X msg 697 112 0;
+#X obj 670 39 loadbang;
+#X obj 665 71 t b f;
+#X obj 641 44 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 354 -67 >> table with channels values (default size=512);
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 4 0 6 1;
+#X connect 5 0 6 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 10 0 12 0;
+#X connect 12 0 11 0;
+#X connect 14 0 13 0;
+#X connect 15 0 13 1;
+#X connect 17 0 18 0;
+#X connect 18 0 15 0;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 21 0 22 0;
+#X connect 23 0 0 0;
+#X connect 24 0 15 0;
+#X connect 25 0 26 0;
+#X connect 26 0 13 0;
+#X connect 26 1 24 0;
+#X connect 27 0 26 0;
+#X restore 324 254 pd 512channel_array;
+#X obj 716 269 an_fader 5;
+#N canvas 1308 307 1135 1036 packet_processing 0;
+#X obj 75 20 r artnet_value;
+#X obj 73 94 unpack a a;
+#X obj 55 178 int;
+#X obj 140 124 t b a;
+#X floatatom 200 207 0 0 99 1 index - -;
+#X floatatom 18 211 0 0 0 0 value - -;
+#X obj 49 244 tabwrite channelsArray;
+#X obj 116 178 delay 1;
+#X obj 355 334 cup;
+#X floatatom 355 385 5 0 0 0 - - -, f 5;
+#X text 255 306 sequence;
+#X msg 394 652 65 114 116 45 78 101 116 0 0 80 0 14 219 0 0 0 2 0 0
+0 52 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0;
+#X obj 318 279 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 495 358 universe;
+#X msg 529 383 0;
+#X msg 491 386 0;
+#X text 587 355 length;
+#X obj 346 294 r s_next;
+#X msg 278 417 0;
+#X obj 281 385 sel 255;
+#X obj 255 990 outlet;
+#X msg 583 381 2;
+#X msg 621 380 0;
+#X obj 459 458 pack f f f f f;
+#X msg 459 508 set 65 114 116 45 78 101 116 0 0 80 0 14 \$1 0 \$2 \$3
+\$4 \$5;
+#X msg 511 554 65 114 116 45 78 101 116 0 0 80 0 14 219 0 0 0 2 0;
+#X obj 106 686 tabread channelsArray;
+#X floatatom 108 797 0 0 0 0 value - -;
+#X obj 104 584 cup;
+#X floatatom 104 635 5 0 0 0 - - -, f 5;
+#X msg 27 667 0;
+#X obj 37 638 sel 512;
+#X msg 152 722 add2 \$1;
+#X obj 63 491 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 64 667 stop;
+#X obj 66 536 metro 0.01;
+#X obj 446 578 t b a;
+#X obj 120 207 t b f;
+#X obj 77 61 speedlim 100;
+#X connect 0 0 38 0;
+#X connect 1 0 2 1;
+#X connect 1 1 3 0;
+#X connect 2 0 37 0;
+#X connect 3 0 7 0;
+#X connect 3 1 6 1;
+#X connect 4 0 6 1;
+#X connect 5 0 6 0;
+#X connect 7 0 2 0;
+#X connect 8 0 9 0;
+#X connect 8 0 19 0;
+#X connect 8 0 23 0;
+#X connect 11 0 20 0;
+#X connect 12 0 8 0;
+#X connect 14 0 23 2;
+#X connect 15 0 23 1;
+#X connect 17 0 8 0;
+#X connect 18 0 8 0;
+#X connect 19 0 18 0;
+#X connect 21 0 23 3;
+#X connect 22 0 23 4;
+#X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 24 0 36 0;
+#X connect 26 0 27 0;
+#X connect 26 0 32 0;
+#X connect 28 0 29 0;
+#X connect 28 0 31 0;
+#X connect 29 0 26 0;
+#X connect 30 0 28 0;
+#X connect 31 0 30 0;
+#X connect 31 0 34 0;
+#X connect 31 0 11 0;
+#X connect 32 0 11 0;
+#X connect 33 0 35 0;
+#X connect 34 0 35 0;
+#X connect 35 0 28 0;
+#X connect 36 0 35 0;
+#X connect 36 1 11 0;
+#X connect 37 0 8 0;
+#X connect 37 1 6 0;
+#X connect 38 0 1 0;
+#X restore 322 298 pd packet_processing;
+#X obj 671 269 an_fader 4;
+#X text 719 239 <<< create faders for DMX channels you want to control
+;
+#X obj 427 -55 cnv 15 260 30 empty empty Simple\ Art-Net\ DMX\ controller
+20 12 0 14 -260097 -33289 0;
+#X text 430 -23 poperbu 2017 http://musa.poperbu.net;
+#X text 371 171 <<<<<<<<<<<<<<< 512 DMX channels >>>>>>>>>>>>>>>;
+#X text 365 192 NOTE:It sends all 512 channels \, adapt it to your
+needs \, so it is not very efficient if we don't need all 512 channels
+;
+#X text 405 533 <<< more efficient if you work with a few and low channels
+;
+#X text 309 498 <<<<<<<<<<<<<<< 8 DMX channels (1-8) >>>>>>>>>>>>>>>
+;
+#X obj 492 269 an_fader 0;
+#X obj 537 269 an_fader 1 R;
+#X obj 582 269 an_fader 2 G;
+#X text 492 241 [an_fader num_of_channel color];
+#X obj 627 269 an_fader 3 B;
+#X text 785 270 arg1-> channel num.;
+#X text 783 300 arg2-> color (r \, g \, b \, default black);
+#X text 228 8 Simple implementation of Art-Net protocol for controlling
+512 DMX light sytem;
+#X connect 0 0 5 0;
+#X connect 2 0 5 0;
+#X connect 5 0 1 0;
+#X connect 10 0 5 0;
+#X connect 13 0 5 0;
